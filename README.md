@@ -83,7 +83,7 @@ pip install fastapi uvicorn python-dotenv azure-identity azure-keyvault-secrets 
 
 ---
 
-### 3. Create `server/main.py` and Add the Following Code
+### 3. Create `server/recommendation.py` and Add the Following Code
 
 ```python
 from fastapi import FastAPI
