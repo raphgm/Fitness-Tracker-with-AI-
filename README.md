@@ -144,8 +144,11 @@ Visit: [http://localhost:8000/docs](http://localhost:8000/docs) to test the API 
 ### 1. Initialize React App
 
 ```bash
-npx create-react-app client --template typescript
-cd client
+npm create vite@latest my-app -- --template react
+cd my-app
+npm install
+npm run dev
+npm install -g npm@latest
 npm install axios @azure/msal-react @mui/material @mui/icons-material chart.js react-chartjs-2 @azure/ai-anomaly-detector
 ````
 
