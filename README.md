@@ -148,6 +148,7 @@ npm create vite@latest my-app -- --template react
 cd my-app
 npm install
 npm run dev
+npm install axios
 npm install -g npm@latest
 npm install axios @azure/msal-react @mui/material @mui/icons-material chart.js react-chartjs-2 @azure/ai-anomaly-detector
 ````
