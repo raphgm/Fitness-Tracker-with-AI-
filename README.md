@@ -131,7 +131,7 @@ Visit: [http://localhost:8000/docs](http://localhost:8000/docs) to test the API 
 
 ```
 
-Let me know if you want to include `.env` setup or deployment tips next.
+
 ```
 
 Here is your full **Markdown rewrite** of the React + TypeScript frontend setup and Azure AI integration, all formatted as a clean single-sheet reference:
