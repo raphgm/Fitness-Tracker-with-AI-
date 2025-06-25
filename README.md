@@ -117,6 +117,10 @@ def get_ai_recommendation(student_id: str):
 async def log_exercise(exercise: Exercise):
     recommendation = get_ai_recommendation(exercise.student_id)
     return {"exercise": exercise, "ai_recommendation": recommendation}
+
+@app.get("/")
+def read_root():
+    return {"message": "Welcome to the AI-Powered Recommendation API"}
 ```
 
 ---
@@ -124,7 +128,7 @@ async def log_exercise(exercise: Exercise):
 ### 4. Run the FastAPI Server
 
 ```bash
-uvicorn main:app --reload
+uvicorn recommendation:app --reload
 ```
 
 Visit: [http://localhost:8000/docs](http://localhost:8000/docs) to test the API using Swagger UI.
