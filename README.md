@@ -138,8 +138,6 @@ Visit: [http://localhost:8000/docs](http://localhost:8000/docs) to test the API 
 
 ```
 
-Here is your full **Markdown rewrite** of the React + TypeScript frontend setup and Azure AI integration, all formatted as a clean single-sheet reference:
-
 
 ## Step 3: Frontend Setup (React + TypeScript)
 
