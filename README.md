@@ -155,7 +155,7 @@ npm install axios @azure/msal-react @mui/material @mui/icons-material chart.js r
 
 ---
 
-### 2. Modify `src/App.tsx`
+### 2. Modify `src/App.jx`
 
 ```tsx
 import React, { useState } from 'react';
