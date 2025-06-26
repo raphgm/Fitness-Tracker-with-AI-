@@ -222,7 +222,7 @@ npm start
 
 ### 2. Add AI Anomaly Detection
 
-Add the following to `App.tsx`:
+Add the following to `App.css`:
 
 ```tsx
 
