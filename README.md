@@ -158,40 +158,43 @@ npm install axios @azure/msal-react @mui/material @mui/icons-material chart.js r
 ### 2. Modify `src/App.jx`
 
 ```tsx
-import React, { useState } from 'react';
-import { useMsal } from '@azure/msal-react';
-import { Bar } from 'react-chartjs-2';
+import axios from "axios";
 
-const FitnessTracker = () => {
-  const { instance } = useMsal();
-  const [exercise, setExercise] = useState({ name: "", duration: 0, calories: 0 });
+// Azure Anomaly Detector Configuration
+const endpoint = "https://anomalyd.cognitiveservices.azure.com/anomalydetector/v1.1/timeseries/entire/detect";
+const apiKey = "7F4B5pFWDbR4F3ZaBPNggAs74MqiVIU6vgeFml6Rl86t6yZzUOIFJQQJ99BFACYeBjFXJ3w3AAAEACOGFYBw";
 
-  const handleSubmit = async () => {
-    const response = await fetch("http://localhost:8000/exercise", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ 
-        student_id: instance.getActiveAccount()?.username,
-        ...exercise 
-      })
-    });
-    const data = await response.json();
-    console.log("AI Recommendation:", data.ai_recommendation);
+export async function detectAnomaly(series) {
+  const headers = {
+    "Ocp-Apim-Subscription-Key": apiKey,
+    "Content-Type": "application/json"
+  };
+  
+  const data = {
+    series: series,
+    granularity: "daily",
+    maxAnomalyRatio: 0.25,
+    sensitivity: 95
   };
 
-  return (
-    <div>
-      <input 
-        placeholder="Exercise" 
-        onChange={(e) => setExercise({...exercise, name: e.target.value})} 
-      />
-      <button onClick={handleSubmit}>Submit</button>
-      <Bar data={{ labels: ["Calories"], datasets: [{ data: [exercise.calories] }] }} />
-    </div>
-  );
-};
-
-export default FitnessTracker;
+  try {
+    const response = await axios.post(endpoint, data, { headers });
+    return {
+      isAnomaly: response.data.isAnomaly,
+      severity: response.data.severity,
+      expectedValues: response.data.expectedValues,
+      timestamps: series.map(item => item.timestamp)
+    };
+  } catch (error) {
+    console.error("API Error Details:", {
+      status: error.response?.status,
+      message: error.response?.data?.message || error.message,
+      endpoint: endpoint,
+      payload: data
+    });
+    throw new Error(`Detection failed: ${error.response?.status || 'No status'} - ${error.response?.data?.message || error.message}`);
+  }
+}
 ```
 
 ---
@@ -222,16 +225,54 @@ npm start
 Add the following to `App.tsx`:
 
 ```tsx
-import { AnomalyDetectorClient } from "@azure/ai-anomaly-detector";
-import { DefaultAzureCredential } from "@azure/identity";
 
-const detectAnomaly = async (calories: number[]) => {
-  const client = new AnomalyDetectorClient("<endpoint>", new DefaultAzureCredential());
-  const response = await client.detectEntireSeries({ 
-    series: calories.map(c => ({ value: c })) 
-  });
-  return response.isAnomaly;
-};
+.app-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.detect-button {
+  padding: 10px 20px;
+  background: #0078d4;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.detect-button:disabled {
+  background: #cccccc;
+}
+
+.error-message {
+  color: #d13438;
+  margin: 20px 0;
+  padding: 15px;
+  border: 1px solid #d13438;
+  border-radius: 4px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+th, td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+th {
+  background-color: #f2f2f2;
+}
+
+.anomaly-row {
+  background-color: #fff4ce;
+}
 ```
 
 ---
