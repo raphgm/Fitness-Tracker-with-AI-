@@ -46,8 +46,40 @@ A modern, AI-powered fitness tracking application built for Mona High School stu
 
 ### Prerequisites
 
-- Node.js (v16 or higher)
-- npm or yarn package manager
+- **Node.js** (v16 or higher)
+- **npm** or **yarn** package manager
+- **VS Code** (recommended IDE)
+- **Git** for version control
+
+### Required VS Code Extensions
+
+Install these essential extensions for the best development experience:
+
+#### **Core Extensions (Required)**
+```bash
+# Install via VS Code Extensions panel or use these commands:
+code --install-extension dsznajder.es7-react-js-snippets
+code --install-extension bradlc.vscode-tailwindcss
+code --install-extension dbaeumer.vscode-eslint
+code --install-extension esbenp.prettier-vscode
+```
+
+#### **Azure Deployment Extensions**
+```bash
+code --install-extension ms-vscode.vscode-node-azure-pack
+code --install-extension ms-azuretools.vscode-azurestaticwebapps
+code --install-extension ms-vscode.azure-account
+```
+
+#### **Development Utilities**
+```bash
+code --install-extension eamodio.gitlens
+code --install-extension usernamehw.errorlens
+code --install-extension christian-kohler.path-intellisense
+code --install-extension humao.rest-client
+```
+
+> **💡 Tip**: VS Code will automatically suggest installing recommended extensions when you open this project!
 
 ### Installation
 
@@ -57,17 +89,22 @@ A modern, AI-powered fitness tracking application built for Mona High School stu
    cd mona-fitness-tracker
    ```
 
-2. **Install dependencies**
+2. **Open in VS Code**
+   ```bash
+   code .
+   ```
+
+3. **Install dependencies**
    ```bash
    npm install
    ```
 
-3. **Start the development server**
+4. **Start the development server**
    ```bash
    npm run dev
    ```
 
-4. **Open your browser**
+5. **Open your browser**
    Navigate to `http://localhost:5173` to view the application
 
 ### Build for Production
@@ -141,17 +178,34 @@ Identifies unusual patterns such as:
 - Inconsistent exercise patterns
 - Potential data entry errors
 
-## 🚀 Deployment
+## ☁️ Azure Deployment
 
-### Netlify (Recommended)
-1. Build the project: `npm run build`
-2. Deploy the `dist/` folder to Netlify
-3. Configure custom domain if needed
+### Quick Deploy to Azure
+1. **Install Azure extensions** in VS Code
+2. **Sign in to Azure** using the Azure Account extension
+3. **Open Command Palette** (`Ctrl+Shift+P`)
+4. **Run**: `Azure Static Web Apps: Create Static Web App...`
+5. **Follow the prompts** to deploy
 
-### Other Platforms
-- **Vercel**: Connect your GitHub repository for automatic deployments
-- **GitHub Pages**: Use GitHub Actions for automated deployment
-- **Azure Static Web Apps**: Deploy directly from GitHub
+### Detailed Deployment Guide
+See [azure-deployment.md](./azure-deployment.md) for complete step-by-step instructions including:
+- VS Code setup and required extensions
+- Multiple deployment methods
+- Environment configuration
+- Troubleshooting guide
+
+## 🚀 Deployment Options
+
+### Recommended: Azure Static Web Apps
+- **Free hosting** perfect for school projects
+- **Global CDN** for fast worldwide access
+- **Automatic HTTPS** and custom domains
+- **GitHub integration** for automatic deployments
+
+### Alternative Platforms
+- **Netlify**: Simple drag-and-drop deployment
+- **Vercel**: Optimized for React applications
+- **GitHub Pages**: Free hosting with GitHub Actions
 
 ## 🤝 Contributing
 
@@ -178,6 +232,17 @@ VITE_AZURE_PERSONALIZER_ENDPOINT=your-personalizer-endpoint
 VITE_AZURE_ANOMALY_DETECTOR_ENDPOINT=your-anomaly-detector-endpoint
 ```
 
+## 🎓 Learning Objectives
+
+This project helps students learn:
+- **Modern React Development** with TypeScript
+- **Responsive Web Design** with Tailwind CSS
+- **Data Visualization** with Chart.js
+- **Cloud Deployment** with Azure
+- **AI Integration** with Azure Cognitive Services
+- **Version Control** with Git and GitHub
+- **Professional Development Workflow** with VS Code
+
 ## 📄 License
 
 This project is licensed under the [Unlicense](LICENSE) - see the LICENSE file for details.
@@ -197,6 +262,24 @@ If you encounter any issues or have questions:
 2. Create a new issue with detailed information
 3. Contact the development team
 
+## 🎯 VS Code Tips for Students
+
+### Essential Keyboard Shortcuts
+- **Ctrl+Shift+P** - Command Palette (most important!)
+- **Ctrl+`** - Toggle integrated terminal
+- **Ctrl+Shift+E** - File Explorer
+- **Ctrl+D** - Select next occurrence
+- **Alt+Shift+Down** - Duplicate line
+- **Ctrl+/** - Toggle comment
+- **F12** - Go to definition
+
+### Debugging
+- Set breakpoints by clicking in the gutter
+- Use F5 to start debugging
+- Use the Debug Console for testing expressions
+
 ---
 
-**Built with ❤️ for the Azure Community & Skill.Sch to help people achieve their fitness goals and advance AI education and training.**
+**Built with ❤️ for Mona High School students to learn modern web development and Azure cloud deployment!** 🚀
+
+**Perfect for advancing AI education and helping students achieve their fitness goals!** 💪

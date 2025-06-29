@@ -1,0 +1,21 @@
+{
+  "recommendations": [
+    "dsznajder.es7-react-js-snippets",
+    "pmneo.tsimporter",
+    "formulahendry.auto-rename-tag",
+    "rbbit.typescript-hero",
+    "bradlc.vscode-tailwindcss",
+    "csstools.postcss",
+    "ms-vscode.vscode-node-azure-pack",
+    "ms-azuretools.vscode-azurestaticwebapps",
+    "ms-vscode.azure-account",
+    "eamodio.gitlens",
+    "mhutchie.git-graph",
+    "dbaeumer.vscode-eslint",
+    "esbenp.prettier-vscode",
+    "usernamehw.errorlens",
+    "humao.rest-client",
+    "rangav.vscode-thunder-client",
+    "christian-kohler.path-intellisense"
+  ]
+}
