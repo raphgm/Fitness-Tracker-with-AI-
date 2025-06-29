@@ -8,7 +8,7 @@ interface HeaderProps {
 
 const Header: React.FC<HeaderProps> = ({ currentStudent, onStudentChange }) => {
   const students = [
-    { id: '1', name: 'Alex Johnson' },
+    { id: '1', name: 'Raphael Gab-Momoh' },
     { id: '2', name: 'Sarah Williams' },
     { id: '3', name: 'Michael Brown' },
     { id: '4', name: 'Emma Davis' },
