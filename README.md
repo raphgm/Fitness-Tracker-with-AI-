@@ -199,4 +199,4 @@ If you encounter any issues or have questions:
 
 ---
 
-**Built with ❤️ for Mona High School students to achieve their fitness goals!**
+**Built with ❤️ for the Azure Community & Skill.Sch to help people achieve their fitness goals and advance AI education and training."**
