@@ -199,4 +199,4 @@ If you encounter any issues or have questions:
 
 ---
 
-**Built with ❤️ for the Azure Community & Skill.Sch to help people achieve their fitness goals and advance AI education and training."**
+**Built with ❤️ for the Azure Community & Skill.Sch to help people achieve their fitness goals and advance AI education and training.**
