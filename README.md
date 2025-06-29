@@ -280,6 +280,6 @@ If you encounter any issues or have questions:
 
 ---
 
-**Built with ❤️ for Azure Community & Skill.Sch to learn modern web development and Azure cloud deployment!** 🚀
+**Built with ❤️ for Azure Community & Skill.Sch to learn modern web development and Azure cloud deployment!** 
 
-**Perfect for advancing AI education and helping students achieve their fitness goals!** 💪
+**Perfect for advancing AI education and helping students achieve their fitness goals!** 
