@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { BarChart3, History, Brain, Activity, TrendingUp } from 'lucide-react';
 import Header from './components/Header';
 import ExerciseForm from './components/ExerciseForm';

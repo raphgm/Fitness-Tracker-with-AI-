@@ -3,9 +3,6 @@ import { Exercise, AIRecommendation, TimeSeriesData, AnomalyDetectionResult } fr
 
 const API_BASE_URL = 'http://localhost:8000';
 
-// Mock API key for demo purposes - in production, this should be in environment variables
-const MOCK_API_KEY = 'demo-key-12345';
-
 export const api = axios.create({
   baseURL: API_BASE_URL,
   headers: {
@@ -109,7 +106,6 @@ function generateMockRecommendations(studentId: string): AIRecommendation[] {
 }
 
 function generateMockAnomalyDetection(data: TimeSeriesData[]): AnomalyDetectionResult {
-  const length = data.length;
   return {
     isAnomaly: data.map(() => Math.random() > 0.8),
     severity: data.map(() => Math.random()),

@@ -132,7 +132,7 @@ const AnomalyDetection: React.FC<AnomalyDetectionProps> = ({ exercises }) => {
             <div>
               <h3 className="font-medium text-gray-900 mb-3">Unusual Activity Patterns</h3>
               <div className="space-y-2">
-                {getAnomalyExercises().map((exercise, index) => (
+                {getAnomalyExercises().map((exercise, _) => (
                   <div key={exercise.id} className="border border-red-200 bg-red-50 rounded-lg p-3">
                     <div className="flex items-center justify-between">
                       <div>
