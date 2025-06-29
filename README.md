@@ -1,314 +1,202 @@
-# Ultimate Step-by-Step Guide to Build Mona High School Fitness Tracker with AI in VS Code
+# 🏃‍♂️ Mona High School Fitness Tracker
 
+A modern, AI-powered fitness tracking application built for Mona High School students to monitor their exercise activities, receive personalized recommendations, and analyze their fitness patterns.
 
+![Fitness Tracker Dashboard](https://images.pexels.com/photos/4164418/pexels-photo-4164418.jpeg?auto=compress&cs=tinysrgb&w=1200&h=400&fit=crop)
 
+## ✨ Features
 
-This guide provides **every single command and configuration** needed to build the Mona High School Fitness Tracker with **AI enhancements** using **VS Code**.
+### 📊 **Dashboard & Analytics**
+- Interactive charts showing weekly calories burned and exercise duration
+- Exercise type distribution analysis
+- Weekly summary statistics
+- Real-time progress tracking
 
----
+### 📝 **Exercise Logging**
+- Easy-to-use form for logging workouts
+- Support for 12+ exercise types (Running, Swimming, Yoga, etc.)
+- Intensity levels (Low, Medium, High)
+- Duration and calorie tracking
 
-##  Pre-Setup (One-Time)
+### 📈 **Exercise History**
+- Complete workout history with filtering
+- Visual intensity indicators
+- Summary statistics (total calories, duration, average performance)
 
-### 1. Install Required Tools
-Run these commands in **PowerShell (Windows)** or **Terminal (Mac/Linux)**:
+### 🤖 **AI-Powered Features**
+- **Smart Recommendations**: Personalized workout suggestions based on your activity patterns
+- **Anomaly Detection**: Identifies unusual patterns in your exercise data
+- **Performance Analysis**: AI-driven insights to optimize your fitness routine
 
-```bash
-# Install Node.js & npm (Frontend)
-winget install OpenJS.NodeJS.LTS  # Windows
-brew install node                 # Mac
+### 👥 **Multi-Student Support**
+- Switch between different student profiles
+- Individual tracking and recommendations for each student
 
+## 🛠️ Technology Stack
 
-# Install Python (Backend)
-winget install Python.Python.3.10  # Windows
-brew install python               # Mac
+- **Frontend**: React 18 + TypeScript
+- **Styling**: Tailwind CSS
+- **Charts**: Chart.js + React-Chartjs-2
+- **Icons**: Lucide React
+- **Build Tool**: Vite
+- **HTTP Client**: Axios
+- **AI Integration**: Azure Cognitive Services (Personalizer, Anomaly Detector)
 
+## 🚀 Getting Started
 
-# Install Git
-winget install Git.Git            # Windows
-brew install git                  # Mac
-```
+### Prerequisites
 
-## 2. Install VS Code Extensions
+- Node.js (v16 or higher)
+- npm or yarn package manager
 
-Open **Visual Studio Code** and install the following extensions:
+### Installation
 
-- [Python](https://marketplace.visualstudio.com/items?itemName=ms-python.python) *(by Microsoft)*
-- [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint) *(by Dirk Baeumer)*
-- [Azure Tools](https://marketplace.visualstudio.com/items?itemName=ms-vscode.vscode-node-azure-pack) *(by Microsoft)*
-- [Docker](https://marketplace.visualstudio.com/items?itemName=ms-azuretools.vscode-docker) *(by Microsoft)*
-- [REST Client](https://marketplace.visualstudio.com/items?itemName=humao.rest-client) *(for API testing)*
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/YOUR_USERNAME/mona-fitness-tracker.git
+   cd mona-fitness-tracker
+   ```
 
-> 💡 Tip: Use `Ctrl+Shift+P` and search for `Extensions: Install Extensions` to quickly open the Extensions view.
----
-## Work in VS Code  
+2. **Install dependencies**
+   ```bash
+   npm install
+   ```
 
-##  Step 1: Clone & Open Project in VS Code
+3. **Start the development server**
+   ```bash
+   npm run dev
+   ```
 
-Open a terminal and run the following commands:
+4. **Open your browser**
+   Navigate to `http://localhost:5173` to view the application
 
-```bash
-git clone https://github.com/microsoft/community-content.git
-cd community-content/S4-SeasonOfAgents/mona-high-school-fitness-tracker
-code .  # Opens VS Code in this folder
-```
-
-
-
-
-## Step 2: Backend Setup (Python + FastAPI)
-
-
-### 1. Create and Activate Virtual Environment
-
-**Windows (PowerShell):**
-```bash
-python -m venv venv
-.\venv\Scripts\activate
-````
-
-**Mac/Linux:**
-
-```bash
-python -m venv venv
-source venv/bin/activate
-```
-
----
-
-### 2. Install Dependencies
+### Build for Production
 
 ```bash
-pip install fastapi uvicorn python-dotenv azure-identity azure-keyvault-secrets pydantic azure-ai-personalizer
-```
-
----
-
-### 3. Create `server/recommendation.py` and Add the Following Code
-
-```python
-from fastapi import FastAPI
-from pydantic import BaseModel
-from azure.identity import DefaultAzureCredential
-from azure.ai.personalizer import PersonalizerClient
-
-app = FastAPI()
-
-class Exercise(BaseModel):
-    student_id: str
-    exercise_name: str
-    duration: float
-    calories: float
-
-# AI-Powered Recommendation Engine
-def get_ai_recommendation(student_id: str):
-    credential = DefaultAzureCredential()
-    client = PersonalizerClient(
-        endpoint="https://<your-personalizer>.cognitiveservices.azure.com",
-        credential=credential
-    )
-    actions = [
-        {"id": "running", "features": {"intensity": "high"}},
-        {"id": "yoga", "features": {"intensity": "low"}}
-    ]
-    response = client.rank(actions=actions, context_features={"user": student_id})
-    return response
-
-@app.post("/exercise")
-async def log_exercise(exercise: Exercise):
-    recommendation = get_ai_recommendation(exercise.student_id)
-    return {"exercise": exercise, "ai_recommendation": recommendation}
-
-@app.get("/")
-def read_root():
-    return {"message": "Welcome to the AI-Powered Recommendation API"}
-```
-
----
-
-### 4. Run the FastAPI Server
-
-```bash
-uvicorn recommendation:app --reload
-```
-
-Visit: [http://localhost:8000/docs](http://localhost:8000/docs) to test the API using Swagger UI.
-
-```
-
-
-```
-
-
-## Step 3: Frontend Setup (React + TypeScript)
-
-### 1. Initialize React App
-
-```bash
-npm create vite@latest my-app -- --template react
-cd my-app
-npm install
-npm run dev
-npm install axios
-npm install -g npm@latest
-npm install axios @azure/msal-react @mui/material @mui/icons-material chart.js react-chartjs-2 @azure/ai-anomaly-detector
-````
-
----
-
-### 2. Modify `src/App.jx`
-
-```tsx
-import axios from "axios";
-
-// Azure Anomaly Detector Configuration
-const endpoint = "https://anomalyd.cognitiveservices.azure.com/anomalydetector/v1.1/timeseries/entire/detect";
-const apiKey = "7F4B5pFWDbR4F3ZaBPNggAs74MqiVIU6vgeFml6Rl86t6yZzUOIFJQQJ99BFACYeBjFXJ3w3AAAEACOGFYBw";
-
-export async function detectAnomaly(series) {
-  const headers = {
-    "Ocp-Apim-Subscription-Key": apiKey,
-    "Content-Type": "application/json"
-  };
-  
-  const data = {
-    series: series,
-    granularity: "daily",
-    maxAnomalyRatio: 0.25,
-    sensitivity: 95
-  };
-
-  try {
-    const response = await axios.post(endpoint, data, { headers });
-    return {
-      isAnomaly: response.data.isAnomaly,
-      severity: response.data.severity,
-      expectedValues: response.data.expectedValues,
-      timestamps: series.map(item => item.timestamp)
-    };
-  } catch (error) {
-    console.error("API Error Details:", {
-      status: error.response?.status,
-      message: error.response?.data?.message || error.message,
-      endpoint: endpoint,
-      payload: data
-    });
-    throw new Error(`Detection failed: ${error.response?.status || 'No status'} - ${error.response?.data?.message || error.message}`);
-  }
-}
-```
-
----
-
-### 3. Run the React App
-
-```bash
-npm start
-```
-
-> Open your browser at: [http://localhost:3000](http://localhost:3000)
-
----
-
-## Step 4: AI Integration (Azure Cognitive Services)
-
-### 1. Set Up Azure AI Services
-
-* Go to [Azure Portal](https://portal.azure.com)
-* Navigate to: **Create Resource → AI + Machine Learning → Personalizer**
-* Copy the **Endpoint** and **Key**
-* Update your `main.py` backend file with these credentials
-
----
-
-### 2. Add AI Anomaly Detection
-
-Add the following to `App.css`:
-
-```tsx
-
-.app-container {
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 20px;
-}
-
-.detect-button {
-  padding: 10px 20px;
-  background: #0078d4;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 16px;
-}
-
-.detect-button:disabled {
-  background: #cccccc;
-}
-
-.error-message {
-  color: #d13438;
-  margin: 20px 0;
-  padding: 15px;
-  border: 1px solid #d13438;
-  border-radius: 4px;
-}
-
-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 20px;
-}
-
-th, td {
-  padding: 12px;
-  text-align: left;
-  border-bottom: 1px solid #ddd;
-}
-
-th {
-  background-color: #f2f2f2;
-}
-
-.anomaly-row {
-  background-color: #fff4ce;
-}
-```
-
----
-
-
-## Step 5: Deploy to Azure
-
-### 1. Deploy Backend (Azure App Service)
-
-```bash
-az webapp up --sku F1 --name mona-fitness-api --runtime "PYTHON:3.10"
-````
-
-### 2. Deploy Frontend (Azure Static Web Apps)
-
-```bash
-cd client
 npm run build
-swa deploy --app-name mona-fitness-app --env production
 ```
+
+The built files will be in the `dist/` directory.
+
+## 📱 Usage
+
+### Logging Exercises
+1. Navigate to the "Log Exercise" tab
+2. Select your exercise type and intensity
+3. Enter duration and estimated calories burned
+4. Click "Log Exercise" to save
+
+### Viewing Analytics
+- **Dashboard**: Overview of your weekly performance
+- **History**: Detailed list of all logged exercises
+- **AI Recommendations**: Get personalized workout suggestions
+- **Pattern Analysis**: Detect unusual patterns in your exercise data
+
+### AI Features
+- **Recommendations**: The AI analyzes your exercise history to suggest optimal workouts
+- **Anomaly Detection**: Identifies sessions that deviate from your normal patterns
+- **Confidence Scores**: Each AI recommendation includes a confidence percentage
+
+## 🏗️ Project Structure
+
+```
+src/
+├── components/           # React components
+│   ├── Header.tsx       # Navigation header
+│   ├── Dashboard.tsx    # Main dashboard with charts
+│   ├── ExerciseForm.tsx # Exercise logging form
+│   ├── ExerciseHistory.tsx # Exercise history display
+│   ├── AIRecommendations.tsx # AI-powered recommendations
+│   └── AnomalyDetection.tsx # Pattern analysis
+├── services/            # API services
+│   └── api.ts          # HTTP client and mock data
+├── types/              # TypeScript type definitions
+│   └── index.ts        # Application types
+├── App.tsx             # Main application component
+├── main.tsx            # Application entry point
+└── index.css           # Global styles and Tailwind imports
+```
+
+## 🎨 Design Features
+
+- **Responsive Design**: Works seamlessly on desktop, tablet, and mobile devices
+- **Modern UI**: Clean, intuitive interface with smooth animations
+- **Accessibility**: Proper contrast ratios and keyboard navigation
+- **Color-Coded Intensity**: Visual indicators for exercise intensity levels
+- **Interactive Charts**: Hover effects and detailed tooltips
+
+## 🔮 AI Integration
+
+### Recommendation Engine
+The AI recommendation system analyzes:
+- Exercise frequency and patterns
+- Intensity preferences
+- Performance trends
+- Recovery needs
+
+### Anomaly Detection
+Identifies unusual patterns such as:
+- Sudden spikes in activity
+- Unusual calorie burn rates
+- Inconsistent exercise patterns
+- Potential data entry errors
+
+## 🚀 Deployment
+
+### Netlify (Recommended)
+1. Build the project: `npm run build`
+2. Deploy the `dist/` folder to Netlify
+3. Configure custom domain if needed
+
+### Other Platforms
+- **Vercel**: Connect your GitHub repository for automatic deployments
+- **GitHub Pages**: Use GitHub Actions for automated deployment
+- **Azure Static Web Apps**: Deploy directly from GitHub
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add some amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+## 📝 Development Notes
+
+### Mock Data
+The application currently uses mock data for demonstration purposes. In a production environment, you would:
+- Set up a backend API (FastAPI recommended)
+- Configure Azure Cognitive Services
+- Implement proper authentication
+- Add data persistence
+
+### Environment Variables
+For production deployment, configure:
+```env
+VITE_API_BASE_URL=your-api-endpoint
+VITE_AZURE_PERSONALIZER_ENDPOINT=your-personalizer-endpoint
+VITE_AZURE_ANOMALY_DETECTOR_ENDPOINT=your-anomaly-detector-endpoint
+```
+
+## 📄 License
+
+This project is licensed under the [Unlicense](LICENSE) - see the LICENSE file for details.
+
+## 🙏 Acknowledgments
+
+- **Mona High School** for the project inspiration
+- **Azure Cognitive Services** for AI capabilities
+- **Pexels** for stock photography
+- **Lucide** for beautiful icons
+- **Tailwind CSS** for styling framework
+
+## 📞 Support
+
+If you encounter any issues or have questions:
+1. Check the [Issues](https://github.com/YOUR_USERNAME/mona-fitness-tracker/issues) page
+2. Create a new issue with detailed information
+3. Contact the development team
 
 ---
 
-
-##  Final Checks
-
-- **Test API:**  
-  [http://<your-api>.azurewebsites.net/docs](http://<your-api>.azurewebsites.net/docs)
-
-- **Test Frontend:**  
-  [https://<your-app>.azurestaticapps.net](https://<your-app>.azurestaticapps.net)
-
-- **Verify AI Functionality:**  
-  Check backend logs for AI-generated **recommendations** and **anomaly detection results**.
-  
-
-
-
-
+**Built with ❤️ for Mona High School students to achieve their fitness goals!**
